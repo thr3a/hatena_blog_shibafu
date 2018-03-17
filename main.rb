@@ -36,7 +36,7 @@ def generate_grass(dates)
   return GithubChart.new(options).render('svg')
 end
 
-get '/' do
+get '/grass' do
   if params[:url]
     dates = date_articles(params[:url])
     svg = generate_grass(dates)
