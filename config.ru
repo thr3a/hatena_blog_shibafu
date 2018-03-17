@@ -1,4 +1,4 @@
 require 'bundler/setup'
-require 'main'
+require './main'
 
 run Sinatra::Application
