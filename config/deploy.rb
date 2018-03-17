@@ -33,7 +33,38 @@ set :deploy_to, "/var/www/hatena_blog_shibafu"
 # set :local_user, -> { `git config user.name`.chomp }
 
 # Default value for keep_releases is 5
-# set :keep_releases, 5
+set :keep_releases, 5
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+set :puma_threads,    [4, 16]
+set :puma_workers,    0
+set :puma_bind,       "unix://#{shared_path}/tmp/sockets/puma.sock"
+set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
+set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
+set :puma_access_log, "#{shared_path}/log/puma.error.log"
+set :puma_error_log,  "#{shared_path}/log/puma.access.log"
+set :puma_preload_app, true
+set :puma_init_active_record, false
+
+
+namespace :deploy do
+
+  task :mkdir do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute :sudo, :mkdir, '-p', "#{fetch(:deploy_to)}"
+      execute :sudo, :chown, "#{fetch(:user)}:#{fetch(:user)}", "#{fetch(:deploy_to)}"
+    end
+  end
+
+  task :upload do
+    on roles(:app), in: :sequence, wait: 5 do
+      fetch(:linked_files).each do |filename|
+        execute :mkdir, '-p', "#{shared_path}/#{File.dirname(filename)}"
+        upload!(filename, "#{shared_path}/#{filename}")
+      end
+    end
+  end
+  
+end
