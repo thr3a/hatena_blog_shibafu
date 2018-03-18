@@ -11,6 +11,13 @@
     <% if @is_dev %>
       <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <% else %>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5C9CZHR');</script>
+    <!-- End Google Tag Manager -->
       <script src="https://unpkg.com/vue@2.5.16/dist/vue.min.js"></script>
     <% end %>
 <style>
@@ -40,6 +47,12 @@ body {
           <input type="text" class="form-input" :value="image_tag" />
           <div class="text-left">
             画像はブログ等に自由に貼れます。
+          </div>
+          <hr>
+          <div class="text-right">
+            <a href="https://github.com/thr3a/hatena_blog_shibafu" target="_blank">ソースコード</a>
+            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="vertical-normal" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
           </div>
       </div>
     </div>
