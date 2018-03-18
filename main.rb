@@ -14,14 +14,19 @@ def date_articles(blog_url)
     5.times do |num|
       sitemap_url =  "#{blog_url.gsub(/\/$/, "")}/sitemap.xml?page=#{num + 1}"
       puts sitemap_url
-      xml = open(sitemap_url).read
-      lastmods = Ox.load(xml, mode: :hash_no_attrs)[:urlset][:url].map{|e| e[:lastmod]}
-      lastmods.each do |lastmod|
-        lastmod = Date.parse(lastmod)
-        if lastmod >= oldest_date
-          dates[lastmod.strftime("%F")] += 1
-        else
-          throw :nested_break
+      begin
+        xml = open(sitemap_url).read
+      rescue => e
+        throw :nested_break
+      else
+        lastmods = Ox.load(xml, mode: :hash_no_attrs)[:urlset][:url].map{|e| e[:lastmod]}
+        lastmods.each do |lastmod|
+          lastmod = Date.parse(lastmod)
+          if lastmod >= oldest_date
+            dates[lastmod.strftime("%F")] += 1
+          else
+            throw :nested_break
+          end
         end
       end
     end
