@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
     <% if @is_dev %>
       <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <% else %>
@@ -24,10 +22,15 @@
 body {
   background-color: #2e8b57;
 }
+
+.container {
+  max-width: 800px;
+  margin-top: 70px;
+}
 </style>
   </head>
   <body>
-    <div class="container" style="max-width:800px;margin-top:100px;">
+    <div class="container">
       <div class="empty">
         <div class="empty-icon">
           <h1>はてなブログ芝生</h1>
@@ -35,16 +38,14 @@ body {
         <p>はてなブログの投稿数で<a href="https://qiita.com/sta/items/2c1f0252a6a9ce5e2087" target="_blank">Githubのcontributionグラフ</a>を生成します。色が濃いほど活発に活動していることになります。</p>
         <div class="empty-action">
           <div class="input-group">
-            <input type="text" class="form-input" v-model="blog_url">
+            <input type="text" class="form-input" v-model="blog_url" autofocus />
             <button class="btn btn-primary input-group-btn" v-on:click="generate">生成</button>
           </div>
         </div>
         <br>
-        <div class="empty-action">
-          <img v-bind:src="generated_image_url" />
-        </div>
+          <img v-bind:src="generated_image_url" class="img-responsive" width="100%"/>
         <br>
-          <input type="text" class="form-input" :value="image_tag" />
+          <input type="text" class="form-input" :value="image_tag" onclick="this.select(0,this.value.length)" />
           <div class="text-left">
             画像はブログ等に自由に貼れます。
           </div>
