@@ -60,4 +60,7 @@ get '/grass' do
   end
 end
 
-
+get '/' do
+  @is_dev = Sinatra::Base.environment == 'development'
+  erb :index  
+end
