@@ -34,7 +34,7 @@ GEM
     mini_magick (4.8.0)
     mini_portile2 (2.3.0)
     multi_json (1.13.1)
-    mustermann (1.0.1)
+    mustermann (1.0.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.2.0)
@@ -42,7 +42,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     ox (2.9.0)
     puma (3.11.3)
-    rack (2.0.4)
+    rack (2.0.5)
     rack-protection (2.0.0)
       rack
     rake (12.3.0)
@@ -79,4 +79,4 @@ DEPENDENCIES
   sinatra-contrib
 
 BUNDLED WITH
-   1.13.7
+   1.16.1
