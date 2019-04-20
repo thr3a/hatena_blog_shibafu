@@ -7,9 +7,7 @@ gem "sinatra"
 gem 'sinatra-contrib'
 gem "mini_magick"
 
-group :development do
-  gem 'capistrano'
-  gem 'capistrano-rbenv'
-  gem 'capistrano-bundler'
-  gem 'capistrano3-puma'
-end
+gem 'capistrano'
+gem 'capistrano-rbenv'
+gem 'capistrano-bundler'
+gem 'capistrano3-puma'
