@@ -6,6 +6,7 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 require "mini_magick"
 require "tempfile"
+set :bind, '0.0.0.0'
 
 def date_articles(blog_url)
   oldest_date = Date.today - 366
@@ -13,7 +14,6 @@ def date_articles(blog_url)
   catch(:nested_break) do
     5.times do |num|
       sitemap_url =  "#{blog_url.gsub(/\/$/, "")}/sitemap.xml?page=#{num + 1}"
-      puts sitemap_url
       begin
         xml = open(sitemap_url).read
       rescue => e
@@ -61,6 +61,5 @@ get '/grass' do
 end
 
 get '/' do
-  @is_dev = Sinatra::Base.environment == 'development'
-  erb :index  
+  erb :index
 end

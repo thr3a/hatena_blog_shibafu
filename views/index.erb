@@ -4,10 +4,10 @@
     <title>はてなブログ芝生</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-    <% if @is_dev %>
-      <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <% if Sinatra::Base.environment == :development %>
+      <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
     <% else %>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -18,16 +18,16 @@
     <!-- End Google Tag Manager -->
       <script src="https://unpkg.com/vue@2.5.16/dist/vue.min.js"></script>
     <% end %>
-<style>
-body {
-  background-color: #2e8b57;
-}
+    <style>
+    body {
+      background-color: #2e8b57;
+    }
 
-.container {
-  max-width: 800px;
-  margin-top: 70px;
-}
-</style>
+    .container {
+      max-width: 800px;
+      margin-top: 70px;
+    }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -36,20 +36,11 @@ body {
           <h1>はてなブログ芝生</h1>
         </div>
         <p>はてなブログの投稿数で<a href="https://qiita.com/sta/items/2c1f0252a6a9ce5e2087" target="_blank">Githubのcontributionグラフ</a>を生成します。色が濃いほど活発に活動していることになります。</p>
-        <div class="empty-action">
-          <div class="input-group">
-            <input type="text" class="form-input" v-model="blog_url" autofocus />
-            <button class="btn btn-primary input-group-btn" v-on:click="generate">生成</button>
-          </div>
+        <div class="main"></div>
+        <div class="text-left">
+          画像はブログ等に自由に貼れます。
         </div>
-        <br>
-          <img v-bind:src="generated_image_url" class="img-responsive" width="100%"/>
-        <br>
-          <input type="text" class="form-input" :value="image_tag" onclick="this.select(0,this.value.length)" />
-          <div class="text-left">
-            画像はブログ等に自由に貼れます。
-          </div>
-          <hr>
+        <hr>
           <div class="text-right">
             <a href="https://github.com/thr3a/hatena_blog_shibafu" target="_blank">ソースコード</a>
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -63,24 +54,40 @@ body {
 
 <script>
 var app = new Vue({
-  el: '.container',
-  data: {
-    blog_url: "http://thr3a.hatenablog.com/",
-    generated_image_url: ""
+  el: '.main',
+  data:  {
+    blog_url: 'https://thr3a.hatenablog.com/',
+    generated_image_url: ''
   },
+  template: `
+  <div class='main'>
+    <div class="empty-action">
+      <div class="input-group">
+        <input type="text" class="form-input" v-model="blog_url" autofocus />
+        <button class="btn btn-primary input-group-btn" v-on:click="generate">生成</button>
+      </div>
+    </div>
+    <br>
+      <img v-bind:src="generated_image_url" class="img-responsive" width="100%"/>
+    <br>
+      <input type="text" class="form-input" :value="image_tag" onclick="this.select(0,this.value.length)" />
+  </div>
+  `,
   computed: {
     image_url: function() {
-      return "http://hatena.turai.work/grass?url="+this.blog_url
+      return `${document.location.protocol}//${location.host}/grass?url=${this.blog_url}`
     },
     image_tag: function() {
-      return '<img src="'+this.image_url+'" />';
+      return `<img src="${this.image_url}" />`;
     }
   },
   methods: {
-    generate: function(e) {
+    generate: function() {
       this.generated_image_url = this.image_url
     }
+  },
+  mounted: function() {
+    this.generate();
   }
 });
-app.generate();
 </script>
