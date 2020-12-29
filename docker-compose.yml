@@ -5,9 +5,8 @@ services:
     # command: bundle exec ruby main.rb
     command: bundle exec puma
     environment:
-      - "RACK_ENV=${RACK_ENV:-production}"
+      - "RACK_ENV=${RACK_ENV:-development}"
     ports:
       - "30001:9292"
     volumes:
       - .:/app
-    restart: always

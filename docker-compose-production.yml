@@ -1,0 +1,8 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.production
+    ports:
+      - "30001:9292"

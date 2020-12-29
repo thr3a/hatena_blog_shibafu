@@ -2,7 +2,7 @@
 
 online: https://hatena.turai.work/
 
-# Start
+# development
 
 ```
 git clone https://github.com/thr3a/hatena_blog_shibafu.git
@@ -11,8 +11,8 @@ dokcer-compose up -d
 # goto http://localhost:30001/
 ```
 
-in development mode
+# production
 
 ```
-RACK_ENV=development docker-compose up
+docker-compose -f docker-compose-production.yml up
 ```
