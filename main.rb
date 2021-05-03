@@ -13,7 +13,7 @@ def date_articles(blog_url)
   oldest_date = Date.today - 366
   dates = (oldest_date..Date.today).map { |e| [e.strftime("%F"), 0] }.to_h
   catch(:nested_break) do
-    sitemap_root_url = "#{blog_url}/sitemap.xml"
+    sitemap_root_url = "#{blog_url.gsub(/\/$/, "")}/sitemap.xml"
     xml = open(sitemap_root_url).read
     site_map_urls = Ox.load(xml, mode: :hash_no_attrs)[:sitemapindex][:sitemap]
     # 先頭は記事ではない為除外
