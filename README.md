@@ -10,9 +10,3 @@ cd hatena_blog_shibafu
 dokcer-compose up -d
 # goto http://localhost:30001/
 ```
-
-# production
-
-```
-docker-compose -f docker-compose-production.yml up
-```
