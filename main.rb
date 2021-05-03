@@ -6,6 +6,7 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 require "mini_magick"
 require "tempfile"
+require "pry" if development?
 set :bind, '0.0.0.0'
 
 def date_articles(blog_url)
